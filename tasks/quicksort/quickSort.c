@@ -58,7 +58,7 @@ int main() {
         }
         case 2: {
             FILE *fp;
-            char name[] = "/Users/mariafilippova/CLionProjects/untitled/data.txt";
+            char name[] = "data.txt";
             if ((fp = fopen(name, "r")) == NULL) {
                 printf("Can't open file");
                 getchar();
