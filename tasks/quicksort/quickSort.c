@@ -9,35 +9,56 @@ void printArray(int32_t *a, int n) {
     }
 }
 
-void quickSort(int32_t *a, int l, int r) {
-    if (l < r) {
-        int mid = (l + r) / 2;
-        int i = l;
-        int j = r;
-        do {
-            while (a[i] < a[mid]) {
-                i++;
-            }
-            while (a[j] > a[mid]) {
-                j--;
-            }
-            if (i <= j) {
-                int c = a[i];
-                a[i] = a[j];
-                a[j] = c;
-                i++;
-                j--;
-            }
+// берем опорный элемент и помещаем его на правильное место, чтобы слева все числа были меньше,
+// а справа - больше
+int partition(int arr[], int low, int high) {
+    int i, j, temp, key;
+    key = arr[low];
+    i = low + 1;
+    j = high;
+    while (1) {
+        while (i < high && key >= arr[i])
+            i++;
+        while (key < arr[j])
+            j--;
+        // меняем два элемента местами
+        if (i < j) {
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        } else {
+            temp = arr[low];
+            arr[low] = arr[j];
+            arr[j] = temp;
+            // возвращаем правильную позицию
+            return (j);
+        }
+    }
+}
 
-        } while (i <= j);
-        quickSort(a, l, j);
-        quickSort(a, i, r);
+void quickSort(int arr[], int low, int high) {
+    int j;
+    if (low < high) {
+        j = partition(arr, low, high);
+        // опорный элемент теперь стоит на нужном месте, мы знаем его позицию
+        // разделяем массив на две части и рекурсивно вызываем сортировку для двух половин массива
+        // относительно опорного элемента
+        // поторяем до тех пор, пока все не будет отсортированно
+        // создаем задачи, которые будут выполнены одним из потоков
+        #pragma omp task firstprivate(arr, low, j)
+        {
+            quickSort(arr, low, j - 1);
+        }
+        #pragma omp task firstprivate(arr, high, j)
+        {
+            quickSort(arr, j + 1, high);
+        }
     }
 }
 
 int main() {
     int mode = 0, N = 0;
-    int32_t* a;
+    int32_t *a;
     printf("Please, print the number, illustrating data.txt source: 1 - console, 2 - file \n");
     scanf("%d", &mode);
     switch (mode) {
@@ -77,6 +98,16 @@ int main() {
             printArray(a, N);
         }
     }
-    quickSort(a, 0, N - 1);
+    int j = partition(a, 0, N - 1); // выбираем первый опорный элемент
+    // начало параллельного участка кода
+    #pragma omp parallel
+    {
+        // выполняется главным потоком
+        #pragma omp single
+        {
+            quickSort(a, 0, N - 1);
+        }
+    }
     printArray(a, N);
+    free(a);
 }
