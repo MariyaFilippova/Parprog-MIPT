@@ -59,7 +59,7 @@ void quickSort(int arr[], int low, int high) {
 int main() {
     int mode = 0, N = 0;
     int32_t *a;
-    printf("Please, print the number, illustrating data.txt source: 1 - console, 2 - file \n");
+    printf("Please, print the number, illustrating data source: 1 - console, 2 - file \n");
     scanf("%d", &mode);
     switch (mode) {
         case 1: {
