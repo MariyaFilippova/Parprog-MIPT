@@ -24,4 +24,8 @@ int main(int argc, char **argv) {
 			a[i] = ((i - 1) * a[i] * (i + 1)) / 3;
 		}
 	}
+	int l = n > 10 ? 10 : n;
+	for (int i = 0; i < l; i++) {
+		printf("%d ", a[i]);
+	}
 }
