@@ -35,7 +35,6 @@ int main(int argc, char **argv) {
 	    free(res);
 		end = MPI_Wtime();
 		printf("Time for parallelization of external cycle %d processes: %lf\n", size, end - start);
-        res = (double*)malloc(ISIZE * JSIZE * sizeof(double));
         start = MPI_Wtime();
     }
 
