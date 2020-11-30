@@ -4,8 +4,8 @@
 #include <time.h>
 #include <mpi.h>
 
-#define ISIZE 10
-#define JSIZE 10
+#define ISIZE 1000
+#define JSIZE 1000
 
 void func(int rank, int size, double* res);
 void cycle(double* res, int start, int limit);
