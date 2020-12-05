@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
 ### Theory material
 We have loop-carried dependency. Distance vector and direction vector:
 
-####D = (3; 5) -> d = (<, <)
+#### D = (3; 5) -> d = (<, <)
 
 We can parallelize outer cycle but only for 8 or less processes.
 
