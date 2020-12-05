@@ -44,6 +44,7 @@ as a task. Master process collect the result of computations.
 ![](resources/table.png)
 
 ![](resources/graph.png)
+
 ## Second task
 Make parallel version of this function:
 ```
@@ -77,7 +78,9 @@ int main(int argc, char **argv) {
 }
 ```
 ### Theory material
+We have loop-carried dependency. Distance vector and direction vector:
 
-### Functions
+####D = (3; 5) -> d = (<, <)
 
-### Results
+We can parallelize outer cycle but only for 8 or less processes.
+
