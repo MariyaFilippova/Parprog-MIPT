@@ -82,5 +82,5 @@ We have loop-carried dependency. Distance vector and direction vector:
 
 #### D = (3; 5) -> d = (<, <)
 
-We can parallelize outer cycle but only for 8 or less processes.
+We can parallelize outer cycle but only for 3 or less processes.
 
